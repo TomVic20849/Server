@@ -9,3 +9,19 @@ app.listen(3000, () => {
     res.send('Hello World!');
   });
   
+  //
+
+  const { Client } = require('pg')
+
+// create a new client 
+const client = new Client({
+  connectionString: process.env.DATABASE_URL,
+  ssl: true
+});
+
+// Connect to the database
+client.connect();
+
+//
+require('dotenv').config()
+
