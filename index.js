@@ -25,3 +25,12 @@ client.connect();
 //
 require('dotenv').config()
 
+//
+
+client.query('SELECT * FROM action', (err, res) => {
+  if (err) {
+    console.log(err.stack)
+  } else {
+    console.log(res.rows)
+  }
+});
