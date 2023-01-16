@@ -19,14 +19,7 @@ require('dotenv').config()
 
 app.get('/rooms/:id', (req, res) => {
     const id = req.params.id;
-    client.query(`SELECT app_pic_number FROM rooms;`, (err, result) => {
-        if (err) {
-            res.status(500).send('Error retrieving data from database');
-        } else {
-            res.send(result.rows[0]);
-        }
-    });
-    client.query(`SELECT powerup_id FROM ingame;`, (err, result) => {
+    client.query(`SELECT app_pic_number, is_app_connected, powerup_id FROM rooms;`, (err, result) => {
         if (err) {
             res.status(500).send('Error retrieving data from database');
         } else {
