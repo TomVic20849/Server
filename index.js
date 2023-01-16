@@ -6,7 +6,14 @@ app.listen(3000, () => {
   });
 
   app.get('/', (req, res) => {
-    res.send('Potatos!');
+      const id = req.params.id;
+      client.query(`SELECT password, is_app_connected FROM rooms WHERE id = ${id}`, (err, result) => {
+          if (err) {
+              res.status(500).send('Error retrieving data from database');
+          } else {
+              res.send(result.rows[0]);
+          }
+      });
   });
   
   //
