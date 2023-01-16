@@ -26,7 +26,7 @@ app.get('/rooms/:id', (req, res) => {
             res.send(result.rows[0]);
         }
     });
-    client.query('UPDATE rooms SET powerup_id = 0 WHERE rooms_id = ${ id };)', requestIdleCallback);
+    //client.query('UPDATE rooms SET powerup_id = 0 WHERE rooms_id = ${ id };)', requestIdleCallback);
 });
 
 app.get('/', (req, res) => {
