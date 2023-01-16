@@ -31,12 +31,5 @@ app.get('/rooms/:id', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-    const id = req.params.id;
-    client.query(`SELECT * FROM rooms`, (err, result) => {
-        if (err) {
-            res.status(500).send('Error retrieving data from database');
-        } else {
-            res.send(result.rows[0]);
-        }
-    });
+    res.send("Welcome to the server, you probably should not be seeing this message")
 });
