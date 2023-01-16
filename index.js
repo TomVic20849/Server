@@ -14,14 +14,13 @@ const client = new Client({
 
 // Connect to the database
 client.connect();
-
-//
 require('dotenv').config()
 
 
 app.get('/rooms/:id', (req, res) => {
     const id = req.params.id;
-    client.query(`SELECT password, is_app_connected FROM rooms WHERE id = ${id}`, (err, result) => {
+    client.query(`SELECT app_pic_number FROM rooms WHERE id = ${id};
+                  SELECT ingame_powerup_number FROM ingame;`, (err, result) => {
         if (err) {
             res.status(500).send('Error retrieving data from database');
         } else {
