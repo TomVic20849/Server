@@ -26,7 +26,7 @@ app.get('/rooms/:id', (req, res) => {
             res.send(result.rows[0]);
         }
     });
-    client.query('UPDATE rooms SET powerup_id = 0 WHERE rooms_id = ${id};)', (err, res) => {
+    client.query('UPDATE rooms SET powerup_id = 1 WHERE rooms_id = ${id};)', (err, res) => {
         if (err) {
             console.log(err.stack);
         } else {
