@@ -41,13 +41,13 @@ app.get('/', (req, res) => {
 });
 
 app.put('/rooms/1/:pfp_num', (req, res) =>{
-    let pfp_num = req.params.pfp_num;
+    const pfp_num = req.params.pfp_num;
     res.send(pfp_num);
-    pool.query(`SELECT password, app_pic_number, is_app_connected, powerup_id FROM rooms WHERE rooms_id = ${id};`, (err, res) =>{
+    client.query(`SELECT password, app_pic_number, is_app_connected, powerup_id FROM rooms WHERE rooms_id = ${id};`, (err, res) =>{
         if(err){
             res.status(500).send('Error, cannot send information into the database');
         }else{
-            pool.query(`UPDATE rooms SET app_pic_number = $pfp_num WHERE rooms_id = ${id};`, (err, res) =>{
+            client.query(`UPDATE rooms SET app_pic_number = $pfp_num WHERE rooms_id = ${id};`, (err, res) =>{
                 if (err) {
                     console.log(err.stack);
                 } else {
