@@ -65,6 +65,7 @@ app.put('/rooms/:id/app_pic_number', (req, res) => {
         if (err) {
             res.status(500).send('Error updating data in database');
         } else {
+            res.send(result.rows[0]);
             res.send({ message: 'app_pic_number updated' });
         }
     });
