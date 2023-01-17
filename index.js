@@ -39,3 +39,47 @@ app.get('/rooms/:id', (req, res) => {
 app.get('/', (req, res) => {
     res.send("Welcome to the server, you probably should not be seeing this message")
 });
+
+app.get('/rooms/:id/app_pic1', (req, res) => {
+    res.send(`UPDATE rooms SET app_pic_number = 1 WHERE rooms_id = ${id};`, (err, res) => {
+        if (err) {
+            console.log(err.stack);
+        } else {
+            console.log(res.rows);
+        }
+    });
+    res.send(result.rows[0]);
+});
+
+app.get('/rooms/:id/app_pic2', (req, res) => {
+    res.send(`UPDATE rooms SET app_pic_number = 2 WHERE rooms_id = ${id};`, (err, res) => {
+        if (err) {
+            console.log(err.stack);
+        } else {
+            console.log(res.rows);
+        }
+    });
+    res.send(result.rows[0]);
+});
+
+app.get('/rooms/:id/app_pic3', (req, res) => {
+    res.send(`UPDATE rooms SET app_pic_number = 3 WHERE rooms_id = ${id};`, (err, res) => {
+        if (err) {
+            console.log(err.stack);
+        } else {
+            console.log(res.rows);
+        }
+    });
+    res.send(result.rows[0]);
+});
+
+app.get('/rooms/:id/app_pic4', (req, res) => {
+    res.send(`UPDATE rooms SET app_pic_number = 4 WHERE rooms_id = ${id};`, (err, res) => {
+        if (err) {
+            console.log(err.stack);
+        } else {
+            console.log(res.rows);
+        }
+    });
+    res.send(result.rows[0]);
+});
