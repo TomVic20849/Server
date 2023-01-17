@@ -40,6 +40,25 @@ app.get('/', (req, res) => {
     res.send("Welcome to the server, you probably should not be seeing this message")
 });
 
+app.post('/rooms/1/:pfp_num', (req, res) =>{
+    let pfp_num = req.params.pfp_num;
+    res.send(pfp_num);
+    pool.query(`SELECT password, app_pic_number, is_app_connected, powerup_id FROM rooms WHERE rooms_id = ${id};`, (err, res) =>{
+        if(err){
+            res.status(500).send('Error, cannot send information into the database');
+        }else{
+            pool.query(`UPDATE rooms SET app_pic_number = $pfp_num WHERE rooms_id = ${id};`, (err, res) =>{
+                if (err) {
+                    console.log(err.stack);
+                } else {
+                    console.log(res.rows);
+                }
+            });
+            res.send(res.rows[0]);
+        }
+    });
+});
+
 app.get('/rooms/:id/app_pic1', (req, res) => {
     res.send(`UPDATE rooms SET app_pic_number = 1 WHERE rooms_id = ${id};`, (err, res) => {
         if (err) {
@@ -83,3 +102,5 @@ app.get('/rooms/:id/app_pic4', (req, res) => {
     });
     res.send(result.rows[0]);
 });
+
+
