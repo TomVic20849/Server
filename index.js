@@ -40,7 +40,7 @@ app.get('/', (req, res) => {
     res.send("Welcome to the server, you probably should not be seeing this message")
 });
 
-app.post('/rooms/1/:pfp_num', (req, res) =>{
+app.put('/rooms/1/:pfp_num', (req, res) =>{
     let pfp_num = req.params.pfp_num;
     res.send(pfp_num);
     pool.query(`SELECT password, app_pic_number, is_app_connected, powerup_id FROM rooms WHERE rooms_id = ${id};`, (err, res) =>{
