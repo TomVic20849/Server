@@ -19,14 +19,14 @@ require('dotenv').config()
 
 app.get('/rooms/:id', (req, res) => {
     const id = req.params.id;
-    client.query(`SELECT app_pic_number, is_app_connected, powerup_id FROM rooms;`, (err, result) => {
+    client.query(`SELECT app_pic_number, is_app_connected, powerup_id FROM rooms WHERE rooms_id = ${id};`, (err, result) => {
         if (err) {
             res.status(500).send('Error retrieving data from database');
         } else {
             res.send(result.rows[0]);
         }
     });
-    client.query('UPDATE rooms SET powerup_id = 1 WHERE rooms_id = ${id};)', (err, res) => {
+    client.query('UPDATE rooms SET powerup_id = 1 WHERE rooms_id = ${id};', (err, res) => {
         if (err) {
             console.log(err.stack);
         } else {
