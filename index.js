@@ -59,7 +59,7 @@ app.put('/rooms/1/:pfp_num', (req, res) =>{
     });
 });
 
-app.get('/rooms/:id/app_pic1', (req, res) => {
+app.get('/rooms/:id/app_pic/:id', (req, res) => {
     res.send(`UPDATE rooms SET app_pic_number = 1 WHERE rooms_id = ${id};`, (err, res) => {
         if (err) {
             console.log(err.stack);
