@@ -23,16 +23,17 @@ app.get('/rooms/:id', (req, res) => {
         if (err) {
             res.status(500).send('Error retrieving data from database');
         } else {
+            client.query(`UPDATE rooms SET powerup_id = 1 WHERE rooms_id = ${id};`, (err, res) => {
+                if (err) {
+                    console.log(err.stack);
+                } else {
+                    console.log(res.rows);
+                }
+            });
             res.send(result.rows[0]);
         }
     });
-    client.query('UPDATE rooms SET powerup_id = 1 WHERE rooms_id = ${id};', (err, res) => {
-        if (err) {
-            console.log(err.stack);
-        } else {
-            console.log(res.rows);
-        }
-    });
+    
 });
 
 app.get('/', (req, res) => {
