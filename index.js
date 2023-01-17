@@ -61,7 +61,7 @@ app.get('/rooms/:id/app_pic_number', (req, res) => {
 app.put('/rooms/:id/app_pic_number', (req, res) => {
     const id = req.params.id;
     const newAppPicNumber = req.body.app_pic_number;
-    client.query(`UPDATE rooms SET app_pic_number = ${newAppPicNumber} WHERE rooms_id = ${id};`, (err, result) => {
+    client.query(`UPDATE rooms SET app_pic_number = ${req.body.app_pic_number} WHERE rooms_id = ${id};`, (err, result) => {
         if (err) {
             res.status(500).send('Error updating data in database');
         } else {
