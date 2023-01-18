@@ -105,3 +105,36 @@ app.put('/rooms/:id/app_pic_number', (req, res) => {
         }
     });
 });
+
+app.get('/rooms/:id/is_app_connected', (req, res) => {
+    const id = req.params.id;
+    client.query(`SELECT is_app_connected FROM rooms WHERE rooms_id = ${id};`, (err, result) => {
+        if (err) {
+            res.status(500).send('Error retrieving data from database');
+        } else {
+            res.send(result.rows[0]);
+        }
+    });
+});
+
+app.get('/rooms/:id/powerup_id', (req, res) => {
+    const id = req.params.id;
+    client.query(`SELECT powerup_id FROM rooms WHERE rooms_id = ${id};`, (err, result) => {
+        if (err) {
+            res.status(500).send('Error retrieving data from database');
+        } else {
+            res.send(result.rows[0]);
+        }
+    });
+});
+
+app.get('/rooms/:id/is_cooldown_active', (req, res) => {
+    const id = req.params.id;
+    client.query(`SELECT is_cooldown_active FROM rooms WHERE rooms_id = ${id};`, (err, result) => {
+        if (err) {
+            res.status(500).send('Error retrieving data from database');
+        } else {
+            res.send(result.rows[0]);
+        }
+    });
+});
