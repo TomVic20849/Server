@@ -29,7 +29,7 @@ app.get('/', (req, res) => {
 
 app.get('/rooms/:id', (req, res) => {
     const id = req.params.id;
-    client.query(`SELECT password, app_pic_number, is_app_connected, powerup_id FROM rooms WHERE rooms_id = ${id};`, (err, result) => {
+    client.query(`SELECT app_pic_number, is_app_connected, powerup_id FROM rooms WHERE rooms_id = ${id};`, (err, result) => {
         if (err) {
             res.status(500).send('Error retrieving data from database');
         } else {
@@ -51,12 +51,18 @@ function getRandomInt(min, max) {
 }
 app.get('/createRoom', (req, res) => {
     const randomPassword=getRandomInt(0, 9999);
-    client.query(`INSERT INTO rooms (password, app_pic_number, is_app_connected, powerup_id, is_cooldown_active) VALUES (${randomPassword}, 0, false, 0, false);`, (err, result) => {
+    client.query(`INSERT INTO rooms (password, app_pic_number, is_app_connected, powerup_id, is_cooldown_active) VALUES ('${randomPassword}', 0, false, 0, false);`, (err, result) => {
         if (err) {
             res.status(500).send('Database error');
         } else {
-
-            res.send(result.rows[0]);
+            client.query(`SELECT rooms_id, password FROM rooms order by rooms_id desc limit 1;`, (err, res) => {
+                if (err) {
+                    console.log(err.stack);
+                } else {
+                    console.log(res.rows);
+                    res.send(result.rows[0]);
+                }
+            });
         }
     });
 });
