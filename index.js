@@ -58,7 +58,7 @@ app.get('/createRoom', (req, res) => {
             console.log(res.rows);
         }
     });
-    client.query(`SELECT max(rooms_id), password FROM rooms GROUP BY rooms_id;`, (err, result) => {
+    client.query(`SELECT max(rooms_id), password FROM rooms;`, (err, result) => {
         if (err) {
             console.log(err.stack);
         } else {
