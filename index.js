@@ -73,7 +73,7 @@ app.get('/createRoom', (req, res) => {
 });
 
 //teste
-app.get('/rooms/:id/password/:password', (req, res) => {
+app.get('/rooms/:id/:password', (req, res) => {
     const id = req.params.id;
     const password = req.params.password;
     client.query(`SELECT app_pic_number, is_app_connected, powerup_id FROM rooms WHERE rooms_id = ${id} AND password = ${password};`, (err, result) => {
