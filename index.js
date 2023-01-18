@@ -23,6 +23,9 @@ const client = new Client({
 client.connect();
 require('dotenv').config()
 
+app.get('/', (req, res) => {
+    res.send("Welcome to the server, you probably should not be seeing this message")
+});
 
 app.get('/rooms/:id', (req, res) => {
     const id = req.params.id;
@@ -43,8 +46,15 @@ app.get('/rooms/:id', (req, res) => {
     
 });
 
-app.get('/', (req, res) => {
-    res.send("Welcome to the server, you probably should not be seeing this message")
+app.get('/rooms/:id/password', (req, res) => {
+    const id = req.params.id;
+    client.query(`SELECT password FROM rooms WHERE rooms_id = ${id};`, (err, result) => {
+        if (err) {
+            res.status(500).send('Error retrieving data from database');
+        } else {
+            res.send(result.rows[0]);
+        }
+    });
 });
 
 app.get('/rooms/:id/app_pic_number', (req, res) => {
