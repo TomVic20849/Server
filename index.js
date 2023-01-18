@@ -44,6 +44,7 @@ app.get('/rooms/:id', (req, res) => {
         }
     });
 });
+
 function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -70,6 +71,26 @@ app.get('/createRoom', (req, res) => {
         });
     })(res);
 });
+
+//teste
+app.get('/rooms/:id/password/:password', (req, res) => {
+    const id = req.params.id;
+    client.query(`SELECT app_pic_number, is_app_connected, powerup_id FROM rooms WHERE rooms_id = ${id} AND password = ${password};`, (err, result) => {
+        if (err) {
+            res.status(500).send('Error retrieving data from database');
+        } else {
+            client.query(`UPDATE rooms SET powerup_id = 0 WHERE rooms_id = ${id};`, (err, res) => {
+                if (err) {
+                    console.log(err.stack);
+                } else {
+                    console.log(res.rows);
+                }
+            });
+            res.send(result.rows[0]);
+        }
+    });
+});
+
 //password
 app.get('/rooms/:id/password', (req, res) => {
     const id = req.params.id;
