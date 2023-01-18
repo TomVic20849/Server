@@ -85,18 +85,6 @@ app.get('/rooms/:id/:password', (req, res) => {
     });
 });
 
-//password
-app.get('/rooms/:id/password', (req, res) => {
-    const id = req.params.id;
-    client.query(`SELECT password FROM rooms WHERE rooms_id = ${id};`, (err, result) => {
-        if (err) {
-            res.status(500).send('Error retrieving data from database');
-        } else {
-            res.send(result.rows[0]);
-        }
-    });
-});
-
 app.put('/rooms/:id/password', (req, res) => {
     const id = req.params.id;
     client.query(`SELECT password FROM rooms WHERE rooms_id = ${id};`, (err, result) => {
