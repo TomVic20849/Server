@@ -71,13 +71,23 @@ app.get('/createRoom', (req, res) => {
     })(res);
 });
 
-app.get('/rooms/:id/password', (req, res) => {
+app.put('/rooms/:id/password', (req, res) => {
     const id = req.params.id;
     client.query(`SELECT password FROM rooms WHERE rooms_id = ${id};`, (err, result) => {
         if (err) {
             res.status(500).send('Error retrieving data from database');
         } else {
-            res.send(result.rows[0]);
+            if (result.rows[0].password === req.body.password) {
+                client.query(`UPDATE rooms SET is_app_connected = true WHERE rooms_id = ${id};`, (err, result) => {
+                    if (err) {
+                        res.status(500).send('Error updating data in database');
+                    } else {
+                        res.send({ message: 'Password matched and is_app_connected updated to true' });
+                    }
+                });
+            } else {
+                res.status(401).send({ message: 'Incorrect password' });
+            }
         }
     });
 });
