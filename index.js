@@ -50,22 +50,25 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 app.get('/createRoom', (req, res) => {
-    const randomPassword=getRandomInt(0, 9999);
-    client.query(`INSERT INTO rooms (password, app_pic_number, is_app_connected, powerup_id, is_cooldown_active) VALUES ('${randomPassword}', 0, false, 0, false);`, (err, result) => {
-        if (err) {
-            res.status(500).send('Database error');
-        } else {
-            console.log(res.rows);
-        }
-    });
-    client.query(`SELECT max(rooms_id), password FROM rooms;`, (err, result) => {
-        if (err) {
-            console.log(err.stack);
-        } else {
-            console.log(res.rows);
-            res.send(result.rows[0]);
-        }
-    });
+    const randomPassword = getRandomInt(0, 9999);
+    // immediately invoked function that returns the route handler callback
+    (function (response) {
+        client.query(`INSERT INTO rooms (password, app_pic_number, is_app_connected, powerup_id, is_cooldown_active) VALUES ('${randomPassword}', 0, false, 0, false);`, (err, result) => {
+            if (err) {
+                response.status(500).send('Database error');
+            } else {
+                console.log(result.rows);
+            }
+        });
+        client.query(`SELECT max(rooms_id), password FROM rooms;`, (err, result) => {
+            if (err) {
+                console.log(err.stack);
+            } else {
+                console.log(result.rows);
+                response.send(result.rows[0]);
+            }
+        });
+    })(res);
 });
 
 app.get('/rooms/:id/password', (req, res) => {
