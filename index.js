@@ -43,7 +43,22 @@ app.get('/rooms/:id', (req, res) => {
             res.send(result.rows[0]);
         }
     });
-    
+});
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+app.get('/createRoom', (req, res) => {
+    const randomPassword=getRandomInt(0, 9999);
+    client.query(`INSERT INTO rooms (password, app_pic_number, is_app_connected, powerup_id, is_cooldown_active) VALUES (${randomPassword}, 0, false, 0, false);`, (err, result) => {
+        if (err) {
+            res.status(500).send('Database error');
+        } else {
+
+            res.send(result.rows[0]);
+        }
+    });
 });
 
 app.get('/rooms/:id/password', (req, res) => {
