@@ -166,12 +166,13 @@ app.get('/rooms/:id/powerup_id', (req, res) => {
 
 app.put('/rooms/:id/powerup_id', (req, res) => {
     const id = req.params.id;
-    client.query(`UPDATE rooms SET app_pic_number = ${req.body.powerup_id} WHERE rooms_id = ${id};`, (err, result) => {
+    const powerup_id = req.params.password;
+    client.query(`UPDATE rooms SET powerup_id = ${req.body.powerup_id} WHERE rooms_id = ${id};`, (err, result) => {
         if (err) {
             res.status(500).send('Error updating data in database');
         } else {
             res.send(result.rows[0]);
-            res.send({ message: 'app_pic_number updated' });
+            res.send({ message: 'powerup_id updated' });
         }
     });
 });
