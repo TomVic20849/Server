@@ -55,14 +55,15 @@ app.get('/createRoom', (req, res) => {
         if (err) {
             res.status(500).send('Database error');
         } else {
-            client.query(`SELECT max(rooms_id), password FROM rooms GROUP BY rooms_id;`, (err, result) => {
-                if (err) {
-                    console.log(err.stack);
-                } else {
-                    console.log(res.rows);
-                    res.send(result.rows[0]);
-                }
-            });
+            console.log(res.rows);
+        }
+    });
+    client.query(`SELECT max(rooms_id), password FROM rooms GROUP BY rooms_id;`, (err, result) => {
+        if (err) {
+            console.log(err.stack);
+        } else {
+            console.log(res.rows);
+            res.send(result.rows[0]);
         }
     });
 });
