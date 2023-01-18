@@ -95,7 +95,6 @@ app.get('/rooms/:id/app_pic_number', (req, res) => {
 
 app.put('/rooms/:id/app_pic_number', (req, res) => {
     const id = req.params.id;
-    const newAppPicNumber = req.body.app_pic_number;
     client.query(`UPDATE rooms SET app_pic_number = ${req.body.app_pic_number} WHERE rooms_id = ${id};`, (err, result) => {
         if (err) {
             res.status(500).send('Error updating data in database');
@@ -117,6 +116,18 @@ app.get('/rooms/:id/is_app_connected', (req, res) => {
     });
 });
 
+app.put('/rooms/:id/is_app_connected', (req, res) => {
+    const id = req.params.id;
+    client.query(`UPDATE rooms SET app_pic_number = ${req.body.is_app_connected} WHERE rooms_id = ${id};`, (err, result) => {
+        if (err) {
+            res.status(500).send('Error updating data in database');
+        } else {
+            res.send(result.rows[0]);
+            res.send({ message: 'app_pic_number updated' });
+        }
+    });
+});
+
 app.get('/rooms/:id/powerup_id', (req, res) => {
     const id = req.params.id;
     client.query(`SELECT powerup_id FROM rooms WHERE rooms_id = ${id};`, (err, result) => {
@@ -128,6 +139,18 @@ app.get('/rooms/:id/powerup_id', (req, res) => {
     });
 });
 
+app.put('/rooms/:id/powerup_id', (req, res) => {
+    const id = req.params.id;
+    client.query(`UPDATE rooms SET app_pic_number = ${req.body.powerup_id} WHERE rooms_id = ${id};`, (err, result) => {
+        if (err) {
+            res.status(500).send('Error updating data in database');
+        } else {
+            res.send(result.rows[0]);
+            res.send({ message: 'app_pic_number updated' });
+        }
+    });
+});
+
 app.get('/rooms/:id/is_cooldown_active', (req, res) => {
     const id = req.params.id;
     client.query(`SELECT is_cooldown_active FROM rooms WHERE rooms_id = ${id};`, (err, result) => {
@@ -135,6 +158,18 @@ app.get('/rooms/:id/is_cooldown_active', (req, res) => {
             res.status(500).send('Error retrieving data from database');
         } else {
             res.send(result.rows[0]);
+        }
+    });
+});
+
+app.put('/rooms/:id/is_cooldown_active', (req, res) => {
+    const id = req.params.id;
+    client.query(`UPDATE rooms SET app_pic_number = ${req.body.is_cooldown_active} WHERE rooms_id = ${id};`, (err, result) => {
+        if (err) {
+            res.status(500).send('Error updating data in database');
+        } else {
+            res.send(result.rows[0]);
+            res.send({ message: 'app_pic_number updated' });
         }
     });
 });
