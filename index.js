@@ -78,7 +78,7 @@ app.get('/rooms/:id/:password', (req, res) => {
     const password = req.params.password;
     client.query(`UPDATE rooms SET is_app_connected = true WHERE rooms_id = ${id} AND password = ${password};`, (err, result) => {
         if (err) {
-            res.status(500).send('Error retrieving data from database');
+            res.status(500).send('somthing else');
         } else {
             res.send(result.rows[0]);
         }
