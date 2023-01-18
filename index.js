@@ -70,6 +70,17 @@ app.get('/createRoom', (req, res) => {
         });
     })(res);
 });
+//password
+app.get('/rooms/:id/password', (req, res) => {
+    const id = req.params.id;
+    client.query(`SELECT password FROM rooms WHERE rooms_id = ${id};`, (err, result) => {
+        if (err) {
+            res.status(500).send('Error retrieving data from database');
+        } else {
+            res.send(result.rows[0]);
+        }
+    });
+});
 
 app.put('/rooms/:id/password', (req, res) => {
     const id = req.params.id;
@@ -91,7 +102,7 @@ app.put('/rooms/:id/password', (req, res) => {
         }
     });
 });
-
+//App pic number
 app.get('/rooms/:id/app_pic_number', (req, res) => {
     const id = req.params.id;
     client.query(`SELECT app_pic_number FROM rooms WHERE rooms_id = ${id};`, (err, result) => {
@@ -114,7 +125,7 @@ app.put('/rooms/:id/app_pic_number', (req, res) => {
         }
     });
 });
-
+// bool Is app connected?
 app.get('/rooms/:id/is_app_connected', (req, res) => {
     const id = req.params.id;
     client.query(`SELECT is_app_connected FROM rooms WHERE rooms_id = ${id};`, (err, result) => {
@@ -137,7 +148,7 @@ app.put('/rooms/:id/is_app_connected', (req, res) => {
         }
     });
 });
-
+//power up id
 app.get('/rooms/:id/powerup_id', (req, res) => {
     const id = req.params.id;
     client.query(`SELECT powerup_id FROM rooms WHERE rooms_id = ${id};`, (err, result) => {
@@ -160,7 +171,7 @@ app.put('/rooms/:id/powerup_id', (req, res) => {
         }
     });
 });
-
+//bool is cooldown active?
 app.get('/rooms/:id/is_cooldown_active', (req, res) => {
     const id = req.params.id;
     client.query(`SELECT is_cooldown_active FROM rooms WHERE rooms_id = ${id};`, (err, result) => {
