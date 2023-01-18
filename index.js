@@ -117,7 +117,7 @@ app.get('/rooms/:id/app_pic_number', (req, res) => {
     });
 });
 
-app.put('/rooms/:id/app_pic_number', (req, res) => {
+app.put('/rooms/:id/:app_pic_number', (req, res) => {
     const id = req.params.id;
     client.query(`UPDATE rooms SET app_pic_number = ${req.body.app_pic_number} WHERE rooms_id = ${id};`, (err, result) => {
         if (err) {
